@@ -24,8 +24,32 @@ def main():
         image_file = sys.argv[1]
     # Reads the specified image file into a byte array.
     with open(image_file, "rb") as f:
-        data = f.read()
+        img_data = f.read()
     # Instantiate an Azure AI client
     az_client = ImageAnalysisClient(endpoint, AzureKeyCredential(key))
     
-    
+    # Analyze image
+    AnalyzeImage(az_client, img_data, cv_client)
+
+def AnalyzeImage(az_client, img_data, cv_client):
+    try:
+        # Call the Azure AI to analyze the image with specified visual features
+        analysis = az_client.analyze_image(
+            img_data, 
+            visual_features=[
+                VisualFeatures.OBJECTS,
+                VisualFeatures.CATEGORIES,
+                VisualFeatures.DESCRIPTION,
+                VisualFeatures.FACES,
+                VisualFeatures.COLOR,
+                VisualFeatures.TAGS,
+                VisualFeatures.ADULT,
+                VisualFeatures.IMAGE_TYPE,
+                VisualFeatures.DENSE_CAPTIONS
+                ])
+        # Display the image and overlay it with the extracted features
+        #display_image(img_data, analysis)
+    except HttpResponseError as e:
+        print('Error code:', e.error.code, 'Message:', e.error.message)
+    except Exception as e:
+        print(e)
