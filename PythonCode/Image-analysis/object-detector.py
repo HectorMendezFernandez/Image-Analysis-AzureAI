@@ -110,22 +110,3 @@ def ImageObjects(result, image_filename):
   
 if __name__ == "__main__":
     main()
-
-# def display_image(img_data, result):
-#     # Open the image file
-#     image = Image.open(io.BytesIO(img_data))
-#     plt.figure(figsize=(10, 10))
-#     # Display the image
-#     plt.imshow(image)
-#     ax = plt.gca()
-#     # Display the image and overlay it with the extracted features
-#     for obj in analysis.objects:
-#         # Draw a rectangle around the object
-#         ax.add_patch(plt.Rectangle((obj.rectangle.x, obj.rectangle.y),
-#                                    obj.rectangle.w, obj.rectangle.h,
-#                                    fill=False, edgecolor='red', lw=3))
-#         # Display the object's name and confidence
-#         ax.text(obj.rectangle.x, obj.rectangle.y, f'{obj.object_property} {obj.confidence*100:.2f}%', 
-#                 fontsize=12, bbox=dict(facecolor='red', alpha=0.5))
-#     plt.axis('off')
-#     plt.show()
