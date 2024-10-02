@@ -53,12 +53,24 @@ def AnalyzeImage(image_file, img_data, az_client):
     
     #Get Image Captions
     ImageCaptions(result)
+    
+    #Get Image Tags
+    ImageTags(result)
+    
 #Get Image Captions
 def ImageCaptions(result):
     if(result.caption):
         print('=================================CAPTIONS==================================')
         print('Description:', result.caption.text, 'Confidence:', result.caption.confidence)
-        print('============================================================================')
+        print('============================================================================\n')
+        
+#Get Image Tags
+def ImageTags(result):
+    if(result.tags):
+        print('=================================TAGS==================================')
+        for tag in result.tags.list:
+            print('Tag:', tag.name, 'Confidence:', tag.confidence)
+        print('============================================================================\n')
     
     
   
