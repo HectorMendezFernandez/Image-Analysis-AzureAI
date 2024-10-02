@@ -57,6 +57,9 @@ def AnalyzeImage(image_file, img_data, az_client):
     #Get Image Tags
     ImageTags(result)
     
+    #Get and draw Image Objects
+    ImageObjects(result, image_file)
+    
 #Get Image Captions
 def ImageCaptions(result):
     if(result.caption):
@@ -71,6 +74,37 @@ def ImageTags(result):
         for tag in result.tags.list:
             print('Tag:', tag.name, 'Confidence:', tag.confidence)
         print('============================================================================\n')
+        
+#Get and draw Image Objects
+def ImageObjects(result, image_filename):
+    if result.objects is not None:
+        print("\nObjects in image:")
+
+        # Prepare image for drawing
+        image = Image.open(image_filename)
+        fig = plt.figure(figsize=(image.width/100, image.height/100))
+        plt.axis('off')
+        draw = ImageDraw.Draw(image)
+        color = 'cyan'
+
+        for detected_object in result.objects.list:
+            # Print object name
+            print(" {} (confidence: {:.2f}%)".format(detected_object.tags[0].name, detected_object.tags[0].confidence * 100))
+            
+            # Draw object bounding box
+            r = detected_object.bounding_box
+            bounding_box = ((r.x, r.y), (r.x + r.width, r.y + r.height)) 
+            draw.rectangle(bounding_box, outline=color, width=3)
+            plt.annotate(detected_object.tags[0].name,(r.x, r.y), backgroundcolor=color)
+
+        # Save annotated image
+        plt.imshow(image)
+        plt.tight_layout(pad=0)
+        # add the name of the original image file
+        image_filename = image_filename.split('/')[-1]
+        outputfile = 'objects-'+image_filename
+        fig.savefig(outputfile)
+        print('  Results saved in', outputfile)
     
     
   
