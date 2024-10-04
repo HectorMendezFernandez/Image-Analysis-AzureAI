@@ -78,7 +78,7 @@ def ImageTags(result):
 #Get and draw Image Objects
 def ImageObjects(result, image_filename):
     if result.objects is not None:
-        print("\nObjects in image:")
+        print('=================================OBJECTS IN IMAGE==================================')
 
         # Prepare image for drawing
         image = Image.open(image_filename)
@@ -105,7 +105,7 @@ def ImageObjects(result, image_filename):
         outputfile = 'objects-'+image_filename
         fig.savefig(outputfile)
         print('  Results saved in', outputfile)
-    
+        print('============================================================================\n')
     
   
 if __name__ == "__main__":
