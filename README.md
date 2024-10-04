@@ -40,4 +40,6 @@ load_dotenv(): Loads environment variables from the .env file.
 ImageAnalysisClient: Creates a client to interact with the Azure Computer Vision service.
 analyze_image_in_stream: Sends the image to the service for analysis.
 ImageCaptions, ImageTags, ImageObjects: Functions to process the analysis results and display captions, tags, and detected objects.
+
+
 ![image](https://github.com/user-attachments/assets/0848ffe5-c005-482d-b51b-1b5bd7b18ce2)
